@@ -24,7 +24,9 @@ namespace MusicLibraryApp
     {
         public MainPage()
         {
+            // Added a comment in the Mainpage
             this.InitializeComponent(); 
+
         }
     }
 }
