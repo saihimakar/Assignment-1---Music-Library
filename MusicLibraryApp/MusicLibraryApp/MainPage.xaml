@@ -1,14 +1,25 @@
 ﻿<Page
-    x:Class="MusicLibraryApp.MainPage"
+    x:Class="App4.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MusicLibraryApp"
+    xmlns:local="using:App4"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <StackPanel>
+            <MediaElement AreTransportControlsEnabled="True"  x:Name="mediaPlayer" HorizontalAlignment="Center" Height="485" VerticalAlignment="Bottom" Width="300" />
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <AppBarButton Icon="OpenFile" Name="openFile" Label="Open File" Click="OpenFile_Click"/>
+
+        </StackPanel>
+        <ListView Name="playlist"  HorizontalAlignment="Left" Height="325" Margin="32,66,0,0" VerticalAlignment="Top" Width="501" />
+
 
     </Grid>
 </Page>
