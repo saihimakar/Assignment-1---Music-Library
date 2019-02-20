@@ -19,6 +19,7 @@ using System.Text;
 using Windows.UI.ViewManagement;
 using Windows.Media.Playback;
 using Windows.Media.Core;
+using Windows.UI.Popups;
 //using TagLib;
 
 namespace App4
@@ -32,19 +33,30 @@ namespace App4
             mediaPlayer.TransportControls.IsFullWindowButtonVisible = false;
             mediaPlayer.TransportControls.IsZoomButtonVisible = false;
             mediaPlayer.TransportControls.IsStopButtonVisible = true;
-            mediaPlayer.TransportControls.IsStopEnabled = true;
+            mediaPlayer.TransportControls.IsStopEnabled = true;            
             ReadPlaylist();
         }
         public string[] paths;
 
         private async void ReadPlaylist()
         {
-            var file = await ApplicationData.Current.LocalFolder.GetFileAsync("playlist_index.txt");
-            var lines = await FileIO.ReadLinesAsync(file);
-            foreach (var line in lines)
+            try
             {
-                playlist.Items.Add(line);
+                var file = await ApplicationData.Current.LocalFolder.GetFileAsync("playlist_index.txt");
+                var lines = await FileIO.ReadLinesAsync(file);
+                foreach (var line in lines)
+                {
+                    playlist.Items.Add(line);
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+            //foreach (var line in lines)
+            //{
+            //    playlist.Items.Add(line);
+            //}
 
         }
 
