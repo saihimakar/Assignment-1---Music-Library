@@ -9,17 +9,30 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
+        <StackPanel VerticalAlignment="Bottom">
             <MediaElement AreTransportControlsEnabled="True"  x:Name="mediaPlayer" HorizontalAlignment="Center" Height="485" VerticalAlignment="Bottom" Width="300" />
-
         </StackPanel>
+       
+        <ListView Name="playlist"  HorizontalAlignment="Center" Height="325" Margin="32,66,0,0" VerticalAlignment="Top" Width="500" SelectionChanged="Playlist_SelectionChanged" />
+        <CommandBar>
+            <AppBarToggleButton Icon="Shuffle" Label="Shuffle" />
+            <AppBarToggleButton Icon="RepeatAll" Label="Repeat" />
+            <AppBarSeparator/>
+            <AppBarButton Icon="Back" Label="Back" />
+            <AppBarButton Icon="Stop" Label="Stop" />
+            <AppBarButton Icon="Play" Label="Play"/>
+            <AppBarButton Icon="Forward" Label="Forward"/>
+            <AppBarButton Icon="OpenFile" Name="openFile" Label="Open File(s)" Click="OpenFile_Click"/>
 
-        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" >
-            <AppBarButton Icon="OpenFile" Name="openFile" Label="Open File" Click="OpenFile_Click"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Like" Label="Like"/>
+                <AppBarButton Icon="Dislike" Label="Dislike"/>
+            </CommandBar.SecondaryCommands>
 
-        </StackPanel>
-        <ListView Name="playlist"  HorizontalAlignment="Left" Height="325" Margin="32,66,0,0" VerticalAlignment="Top" Width="501" />
-
+            <CommandBar.Content>
+                <TextBlock Text="Best Music Player" Margin="10"/>
+            </CommandBar.Content>
+        </CommandBar>
 
     </Grid>
 </Page>

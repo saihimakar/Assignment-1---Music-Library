@@ -20,7 +20,7 @@ using Windows.UI.ViewManagement;
 using Windows.Media.Playback;
 using Windows.Media.Core;
 using Windows.UI.Popups;
-//using TagLib;
+
 
 namespace App4
 {
@@ -28,22 +28,27 @@ namespace App4
     public sealed partial class MainPage : Page
     {
         public MainPage()
+
         {
             this.InitializeComponent();
             mediaPlayer.TransportControls.IsFullWindowButtonVisible = false;
             mediaPlayer.TransportControls.IsZoomButtonVisible = false;
             mediaPlayer.TransportControls.IsStopButtonVisible = true;
-            mediaPlayer.TransportControls.IsStopEnabled = true;            
+            mediaPlayer.TransportControls.IsStopEnabled = true;
+            this.DataContext = DataContext;
             ReadPlaylist();
         }
-        public string[] paths;
 
-        private async void ReadPlaylist()
+        public static IList<string> paths;
+        public static StorageFile fileplaylist;
+
+        public async void ReadPlaylist()
         {
             try
             {
-                var file = await ApplicationData.Current.LocalFolder.GetFileAsync("playlist_index.txt");
-                var lines = await FileIO.ReadLinesAsync(file);
+                fileplaylist = await ApplicationData.Current.LocalFolder.GetFileAsync("playlist_index.txt");
+                var lines = await FileIO.ReadLinesAsync(fileplaylist);
+                
                 foreach (var line in lines)
                 {
                     playlist.Items.Add(line);
@@ -51,20 +56,13 @@ namespace App4
             }
             catch (Exception ex)
             {
-
             }
-            //foreach (var line in lines)
-            //{
-            //    playlist.Items.Add(line);
-            //}
-
         }
-
 
         private async void OpenFile_Click(object sender, RoutedEventArgs e)
         {
-            string filename = "playlist_index.txt";
-            StorageFile FilePath = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename,
+            string fileplaylist = "playlist_index.txt";
+            StorageFile FilePath = await ApplicationData.Current.LocalFolder.CreateFileAsync(fileplaylist,
                 CreationCollisionOption.OpenIfExists);
             var openPicker = new FileOpenPicker();
 
@@ -76,45 +74,28 @@ namespace App4
 
             foreach (StorageFile file in files)
             {
-                playlist.Items.Add(file.Path);
+                var musicPoperties = await file.Properties.GetMusicPropertiesAsync();
+                var artist = musicPoperties.Artist;
+                var album = musicPoperties.Album;
+                var title = musicPoperties.Title;                
+                playlist.Items.Add(artist + " - " + title + " - " + album);        
                 await FileIO.AppendTextAsync(FilePath, file.Path + Environment.NewLine);
             }
+                                 
+        }
 
-
-
-
-
-            //FileOpenPicker FileBrowser = new FileOpenPicker();
-            //FileBrowser.SuggestedStartLocation = PickerLocationId.Desktop;
-            //FileBrowser.ViewMode = PickerViewMode.List;
-            //FileBrowser.FileTypeFilter.Add(".mp3");
-            //StorageFile File = await FileBrowser.PickSingleFileAsync();
-            //if (File != null)
-            //{
-            //    IRandomAccessStream stream = await File.OpenAsync(FileAccessMode.Read);
-            //    mediaPlayer.SetSource(stream, File.ContentType);
-            //    mediaPlayer.Play();
-            //}
-
-
+        private async void Playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (playlist.SelectedItem != null)
+            {
+                fileplaylist = await ApplicationData.Current.LocalFolder.GetFileAsync("playlist_index.txt");
+                paths = await FileIO.ReadLinesAsync(fileplaylist);
+                StorageFile file = await StorageFile.GetFileFromPathAsync(paths[playlist.SelectedIndex]);
+                var stream = await file.OpenAsync(FileAccessMode.Read);
+                mediaPlayer.SetSource(stream, paths[playlist.SelectedIndex]);
+            }
         }
     }
-
-
-
-
-
-        //FileOpenPicker FileBrowser = new FileOpenPicker();
-        //FileBrowser.SuggestedStartLocation = PickerLocationId.Desktop;
-        //FileBrowser.ViewMode = PickerViewMode.List;
-        //FileBrowser.FileTypeFilter.Add(".mp3");
-        //StorageFile File = await FileBrowser.PickSingleFileAsync();
-        //if (File != null)
-        //{
-        //    IRandomAccessStream stream = await File.OpenAsync(FileAccessMode.Read);
-        //    media.SetSource(stream, File.ContentType);
-        //    media.Play();
-        //}
     }
 
 
