@@ -91,6 +91,7 @@ namespace MusicApp1
 
             IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
 
+           
 
             foreach (StorageFile file in files)
             {
@@ -125,6 +126,33 @@ namespace MusicApp1
                     var stream = await file.OpenAsync(FileAccessMode.Read);
 
                     mediaPlayer.SetSource(stream, paths[PlaylistView.SelectedIndex]);
+
+
+                    // ==============================================================================
+
+                    // Play the song by the MediaPlayer that can set the source. If the StorageFile 
+                    // which the user clicks on is 'file', we can set the source like this:
+
+                    // StorageFolder loc = Applicaion.Current.LocalFolder;
+                   
+
+                    //if (songplaying)
+                    //{
+                    //    MediaElement.AutoPlay = false;
+                    //    Playing = false;
+                    //}
+
+                    //else
+                    //{
+                    //    playing = true;
+                    //    MediaElement.AutoPlay = false;
+                    //    // give cover image. 
+                    //}
+
+                    // MediaPlayerElement.Source = MediaSource.CreateFromStorsge(file);
+                    // MediaPlayerElement.Media.Play();
+
+                    // ===================================================================================
                 }
             }
         }
