@@ -113,7 +113,7 @@ namespace MusicApp1
 
                 // Adding Thumbnail to song.
                 await FileIO.AppendTextAsync(FilePath, file.Path + Environment.NewLine);
-                StorageItemThumbnail storageitem = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 50, ThumbnailOptions.UseCurrentScale);
+                StorageItemThumbnail storageitem = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 64, ThumbnailOptions.UseCurrentScale);
                 var music_coverpic = new BitmapImage();
                 music_coverpic.SetSource(storageitem);
                 
