@@ -52,7 +52,7 @@
         <CommandBar VerticalAlignment="Bottom">
             <AppBarButton Icon="Add" Label="Open File(s)" Click="BrowseFiles_Click" />
             <AppBarButton Icon="Setting" Label="Settings" />
-            <AppBarButton Icon="Cancel" Label="Exit" Click="ExitApp_Click" />            
+            <AppBarButton Icon="Cancel" Label="Exit" Click="ExitApp_Click" />
         </CommandBar>
 
         <MediaElement Name="mediaPlayer" AreTransportControlsEnabled="True" VerticalAlignment="Bottom" Height="100" Margin="200,0,200,40" FocusVisualPrimaryBrush="{x:Null}" IsLooping="True"/>

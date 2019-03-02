@@ -1,7 +1,7 @@
 ﻿<Application
-    x:Class="MusicLibraryApp.App"
+    x:Class="MusicApp1.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MusicLibraryApp">
+    xmlns:local="using:MusicApp1">
 
 </Application>

@@ -15,7 +15,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace MusicLibraryApp
+namespace MusicApp1
+
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -28,7 +29,7 @@ namespace MusicLibraryApp
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            //this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
 

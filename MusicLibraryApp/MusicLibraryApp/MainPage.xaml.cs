@@ -17,7 +17,8 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Media.Playback;
 using Windows.Media.Core;
 using Windows.UI.Popups;
-
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage.FileProperties;
 
 namespace MusicApp1
 {
@@ -91,7 +92,7 @@ namespace MusicApp1
 
             IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
 
-           
+
 
             foreach (StorageFile file in files)
             {
@@ -109,9 +110,15 @@ namespace MusicApp1
                     Year = year
                 });
 
+
+                // Adding Thumbnail to song.
                 await FileIO.AppendTextAsync(FilePath, file.Path + Environment.NewLine);
+                StorageItemThumbnail storageitem = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 50, ThumbnailOptions.UseCurrentScale);
+                var music_coverpic = new BitmapImage();
+                music_coverpic.SetSource(storageitem);
+                
             }
-       }
+        }
 
         private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -134,7 +141,7 @@ namespace MusicApp1
                     // which the user clicks on is 'file', we can set the source like this:
 
                     // StorageFolder loc = Applicaion.Current.LocalFolder;
-                   
+
 
                     //if (songplaying)
                     //{

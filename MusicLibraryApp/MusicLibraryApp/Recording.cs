@@ -9,7 +9,7 @@ namespace MusicApp1
 {
     public class Recording
     {
-            
+
         public string Artist { get; set; }
         public string Track { get; set; }
         public string Album { get; set; }
